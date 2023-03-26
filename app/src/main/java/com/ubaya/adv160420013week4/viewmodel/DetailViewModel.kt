@@ -1,9 +1,10 @@
 package com.ubaya.adv160420013week4.viewmodel
 
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.ubaya.adv160420013week4.model.Student
 
-class DetailViewModel {
+class DetailViewModel: ViewModel() {
     val studentLD = MutableLiveData<Student>()
 
     fun fetch() {
