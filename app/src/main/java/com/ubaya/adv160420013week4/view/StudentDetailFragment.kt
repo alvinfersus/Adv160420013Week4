@@ -5,11 +5,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.ubaya.adv160420013week4.R
+import com.ubaya.adv160420013week4.util.loadImage
 import com.ubaya.adv160420013week4.viewmodel.DetailViewModel
+import androidx.navigation.Navigation
 
 class StudentDetailFragment : Fragment() {
     private lateinit var viewModel: DetailViewModel
@@ -25,7 +29,11 @@ class StudentDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this).get(DetailViewModel::class.java)
-        viewModel.fetch()
+        var student_id:String = "0"
+        arguments?.let {
+            student_id = StudentDetailFragmentArgs.fromBundle(requireArguments()).studentId.toString()
+        }
+        viewModel.fetch(student_id)
         observeViewModel()
     }
 
@@ -35,11 +43,16 @@ class StudentDetailFragment : Fragment() {
             val txtName = view?.findViewById<TextView>(R.id.txtName)
             val txtBod = view?.findViewById<TextView>(R.id.txtBod)
             val txtPhone = view?.findViewById<TextView>(R.id.txtPhone)
+            val imgStudent = view?.findViewById<ImageView>(R.id.imgStudent)
+            val progressBarStudent = view?.findViewById<ProgressBar>(R.id.progressBarStudent)
 
             txtID?.text = viewModel.studentLD.value?.id
             txtName?.text = viewModel.studentLD.value?.name
             txtBod?.text = viewModel.studentLD.value?.dob
             txtPhone?.text = viewModel.studentLD.value?.phone
+            if (progressBarStudent != null) {
+                imgStudent?.loadImage(viewModel.studentLD.value?.photoUrl, progressBarStudent)
+            }
         })
     }
 }

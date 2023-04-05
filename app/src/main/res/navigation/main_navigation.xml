@@ -13,10 +13,17 @@
         <action
             android:id="@+id/actionStudentDetail"
             app:destination="@id/studentDetailFragment" />
+        <argument
+            android:name="student_id"
+            app:argType="integer" />
     </fragment>
     <fragment
         android:id="@+id/studentDetailFragment"
         android:name="com.ubaya.adv160420013week4.view.StudentDetailFragment"
         android:label="fragment_student_detail"
-        tools:layout="@layout/fragment_student_detail" />
+        tools:layout="@layout/fragment_student_detail" >
+        <argument
+            android:name="student_id"
+            app:argType="string" />
+    </fragment>
 </navigation>
